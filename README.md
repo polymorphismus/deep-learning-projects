@@ -1,6 +1,7 @@
-# Deep Learning Projects - Safe Folder
+# Deep Learning Projects
 
-This folder contains three comprehensive deep learning projects focusing on computer vision and image processing. Each project demonstrates practical implementation of state-of-the-art techniques in deep learning, from transfer learning to convolutional neural networks and super-resolution.
+This repo contains three comprehensive deep learning projects focusing on computer vision and image processing.
+
 
 ## Overview
 
