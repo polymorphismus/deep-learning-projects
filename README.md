@@ -16,8 +16,7 @@ This collection includes projects covering:
 ## Projects
 
 ### 1. Transfer Learning for Image Classification
-**File**: `transfer_learning_image_classification_fin.ipynb`
-
+**Notebook**: [transfer_learning_image_classification.ipynb](./transfer_learning_image_classification_fin.ipynb)
 **Summary**: This project explores transfer learning for a 9-class image classification task. The project evaluates multiple pretrained architectures, experiments with augmentation pipelines, analyzes model errors, and introduces targeted regularization strategies to reduce overfitting and improve generalization.
 
 **Key Objectives**:
