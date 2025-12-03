@@ -17,6 +17,7 @@ This collection includes projects covering:
 
 ### 1. Transfer Learning for Image Classification
 **Notebook**: [transfer_learning_image_classification.ipynb](./transfer_learning_image_classification_fin.ipynb)
+
 **Summary**: This project explores transfer learning for a 9-class image classification task. The project evaluates multiple pretrained architectures, experiments with augmentation pipelines, analyzes model errors, and introduces targeted regularization strategies to reduce overfitting and improve generalization.
 
 **Key Objectives**:
@@ -48,7 +49,7 @@ This collection includes projects covering:
 ---
 
 ### 2. CIFAR-10 Classification with Fully Connected and Convolutional Networks
-**File**: `cifar_10_fin.ipynb`
+**Notebook**: [cifar_10_fcn_cnn.ipynb](./cifar_10_fin.ipynb)
 
 **Summary**: This project explores image classification on the CIFAR-10 dataset using two fundamentally different model families: Fully Connected Networks (FCNs) as a baseline approach treating images as flat vectors, and Convolutional Neural Networks (CNNs) that exploit spatial structure in images. The goal is to demonstrate the progression from a simple, limited baseline toward a modern, spatially-aware model, analyzing how architectural choices, regularization, optimization, and data augmentation influence performance.
 
@@ -87,7 +88,7 @@ This collection includes projects covering:
 ---
 
 ### 3. Image Super-Resolution
-**File**: `Super_Resolution.ipynb`
+**Notebook**: [Super_Resolution.ipynb](./Super_Resolution.ipynb)
 
 **Summary**: This project applies deep learning to upscale low-resolution images into higher-resolution outputs. Using the Oxford-IIIT Pet dataset, the project trains a lightweight convolutional model to reconstruct high-resolution (HR) images from bicubic-downsampled low-resolution (LR) inputs. Training combines pixel loss with VGG16-based perceptual loss, enabling the model to recover sharper edges and textures beyond standard interpolation.
 
@@ -125,7 +126,7 @@ This collection includes projects covering:
 ---
 
 ### 4. Word Embedding & Genre Classification
-**File**: `word_embedding_fin.ipynb`
+**Notebook**: [word_embeddings_and_classification.ipynb](./word_embedding_fin.ipynb)
 
 **Summary**: This project builds a complete NLP pipeline for analyzing and classifying song lyrics using custom-trained word embeddings. It combines classical machine learning, modern deep learning, and multiple semantic evaluation techniques to explore how meaning is captured in text representations. The workflow starts from raw MetroLyrics data and progresses through preprocessing, word embedding training, sentiment modeling, semantic visualization, and multi-method genre classification, including a convolutional neural network.
 
@@ -169,7 +170,7 @@ This collection includes projects covering:
 ---
 
 ### 5. Cell Counting with CNNs and Density Maps
-**File**: `cell_count.ipynb`
+**Notebook**: [counting_cell_cnn_density.ipynb](./cell_count.ipynb)
 
 **Summary**: This project implements and compares several approaches for cell counting in microscopy images, using both regression-based CNNs and fully convolutional architectures that learn density maps. The goal is to estimate the number of fluorescent cell nuclei in synthetic images containing hundreds of small circular objects. The project progresses through three modeling families: baseline CNN regressor, feature-rich CNN regressor, and UNet-based density estimation model.
 
