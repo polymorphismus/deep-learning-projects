@@ -1,7 +1,6 @@
 # Deep Learning Projects
 
-This repo contains three comprehensive deep learning projects focusing on computer vision and image processing.
-
+This repo contains three deep learning projects across different domains, including computer vision and text classification.
 
 ## Overview
 
@@ -9,6 +8,8 @@ This collection includes projects covering:
 - **Transfer Learning**: Fine-tuning pre-trained models for image classification
 - **Convolutional Neural Networks**: Building and training CNNs from scratch for image classification
 - **Super-Resolution**: Enhancing image quality using deep learning techniques
+- **Natural Language Processing**: Word embeddings and text classification
+- **Biomedical Image Analysis**: Cell counting using density maps and CNNs
 
 ---
 
@@ -121,3 +122,97 @@ This collection includes projects covering:
 - **Loss Function**: Combination of MSE pixel loss and VGG16-based perceptual loss
 
 **Methodology**: The model learns to predict missing detail directly from low-resolution input, going beyond simple interpolation by learning to reconstruct high-frequency details and textures that are lost during downsampling.
+
+---
+
+### 4. Word Embedding & Genre Classification
+**File**: `word_embedding_fin.ipynb`
+
+**Summary**: This project builds a complete NLP pipeline for analyzing and classifying song lyrics using custom-trained word embeddings. It combines classical machine learning, modern deep learning, and multiple semantic evaluation techniques to explore how meaning is captured in text representations. The workflow starts from raw MetroLyrics data and progresses through preprocessing, word embedding training, sentiment modeling, semantic visualization, and multi-method genre classification, including a convolutional neural network.
+
+**Key Techniques**:
+- **Text Preprocessing**:
+  - Lowercasing, punctuation removal, tokenization
+  - Stopword removal and lemmatization
+  - Rare word filtering (frequency ≤ 5) to reduce noise
+  - Per-genre word frequency analysis
+
+- **Word2Vec Embeddings**:
+  - Skip-gram model implementation using Gensim
+  - Training with multiple window sizes (2, 10, 20) to capture local vs. global context
+  - 300-dimensional embeddings with vocabulary of 36,418 words
+  - Word similarity analysis and vector algebra (e.g., king - man + woman ≈ queen)
+
+- **Sentiment Analysis**:
+  - Sentiment regression using Ridge and MLP models
+  - Mapping word embeddings to sentiment scores from SemEval-2015 lexicon
+  - Predicting sentiment for words not in the original lexicon
+  - Linear Ridge model outperformed MLP, indicating linear sentiment structure in embeddings
+
+- **Genre Classification**:
+  - Bag-of-Words (BOW) with bigrams + Multinomial Naive Bayes baseline
+  - Average Word2Vec embeddings + Logistic Regression
+  - TF-IDF weighted embeddings for genre classification
+  - Comparison of semantic vs. frequency-based representations
+
+**Dataset**:
+- **Source**: MetroLyrics dataset
+- **Size**: 49,976 songs with full lyrics
+- **Genres**: Multiple genres including Rock, Pop, and others
+- **Features**: Song title, artist, year, genre, lyrics, sentiment labels
+
+**Results**:
+- **Word2Vec Training**: Successfully trained embeddings capturing semantic relationships
+- **Sentiment Regression**: Ridge model achieved CV MSE of 0.076, demonstrating linear sentiment structure
+- **Genre Classification**: BOW + Naive Bayes achieved 61.2% accuracy as baseline
+- **Key Insight**: Word embeddings capture meaningful semantic and emotional structure, enabling downstream tasks like sentiment prediction and genre classification
+
+---
+
+### 5. Cell Counting with CNNs and Density Maps
+**File**: `cell_count.ipynb`
+
+**Summary**: This project implements and compares several approaches for cell counting in microscopy images, using both regression-based CNNs and fully convolutional architectures that learn density maps. The goal is to estimate the number of fluorescent cell nuclei in synthetic images containing hundreds of small circular objects. The project progresses through three modeling families: baseline CNN regressor, feature-rich CNN regressor, and UNet-based density estimation model.
+
+**Key Techniques**:
+- **Baseline CNN Regressor**:
+  - Minimal convolutional model treating cell counting as pure regression
+  - Convolutional blocks extracting global features
+  - Global pooling followed by fully connected layer outputting single scalar count
+  - Direct mapping from image appearance to total cell count
+
+- **Feature-Rich CNN Regressor (CellCountCNNRegressor)**:
+  - Deeper CNN with more convolutional blocks
+  - Larger receptive field to capture crowded regions
+  - Improved ability to handle dense cell distributions
+
+- **UNet-based Density Estimation**:
+  - Fully convolutional network outputting pixel-wise density maps
+  - Density map integral approximates total cell count
+  - Standard approach in modern crowd-counting and microscopy papers
+  - Learns spatial structure rather than only scalar target
+
+- **Data Processing**:
+  - Custom dataset class for paired images and binary label masks
+  - Conversion of masks to ground-truth density maps using Gaussian filtering
+  - Data augmentation (horizontal/vertical flips, rotations)
+  - ImageNet normalization for transfer learning compatibility
+
+**Dataset**:
+- **Task**: Cell counting in synthetic microscopy images
+- **Training Images**: 180 images
+- **Validation Images**: 20 images
+- **Format**: Paired RGB images and binary label masks
+- **Challenge**: Counting hundreds of small circular objects (fluorescent cell nuclei) per image
+
+**Architecture**:
+- **Baseline CNN**: 3 convolutional blocks (32 → 64 → 128 channels) with max pooling, followed by fully connected layers
+- **Feature-Rich CNN**: Deeper architecture with expanded receptive fields
+- **UNet**: Encoder-decoder architecture with skip connections for density map prediction
+
+**Results**:
+- **Baseline CNN**: Best validation MAE of 32.67 after 20 epochs
+- **Training Progress**: Improved from initial MAE of 60.41 to final validation MAE of 32.67
+- **Key Insight**: Density map approaches (UNet) provide spatial information and are standard in modern cell counting, while regression CNNs offer simpler direct count prediction
+
+**Applications**: Biomedical image analysis, cell counting in microscopy images, crowd counting, object density estimation
