@@ -1,6 +1,6 @@
 # Deep Learning Projects
 
-This repo contains three deep learning projects across different domains, including computer vision and text classification.
+This repo contains six deep learning projects across different domains, including computer vision and natural language processing.
 
 ## Overview
 
@@ -8,7 +8,7 @@ This collection includes projects covering:
 - **Transfer Learning**: Fine-tuning pre-trained models for image classification
 - **Convolutional Neural Networks**: Building and training CNNs from scratch for image classification
 - **Super-Resolution**: Enhancing image quality using deep learning techniques
-- **Natural Language Processing**: Word embeddings and text classification
+- **Natural Language Processing**: Word embeddings, text classification, and named entity recognition
 - **Biomedical Image Analysis**: Cell counting using density maps and CNNs
 
 ---
@@ -216,3 +216,60 @@ This collection includes projects covering:
 - **Key Insight**: Density map approaches (UNet) provide spatial information and are standard in modern cell counting, while regression CNNs offer simpler direct count prediction
 
 **Applications**: Biomedical image analysis, cell counting in microscopy images, crowd counting, object density estimation
+
+---
+
+### 6. Named Entity Recognition with Cross-Dataset Label Mapping
+**Notebook**: [ner_project_fin.ipynb](./ner_project_fin.ipynb)
+
+**Summary**: This project investigates the critical issue of label space mismatches when applying Named Entity Recognition (NER) models trained on one dataset to another. The project examines how mismatched label spaces distort predictions, how subword tokenization complicates label alignment, and why naïve fine-tuning of pretrained NER models may fail when parts of the classifier head receive no supervision. The goal is to demonstrate that resolving label-space alignment is essential before any meaningful fine-tuning can occur.
+
+**Key Objectives**:
+- Investigate label space mismatches between pretrained models and target datasets
+- Understand how subword tokenization affects label alignment in NER tasks
+- Demonstrate the importance of proper label-space alignment for successful fine-tuning
+- Compare fine-tuning strategies with mismatched vs. properly aligned label spaces
+
+**Key Techniques**:
+- **Label Alignment with Subword Tokenization**:
+  - Alignment function to map word-level NER labels to subword tokens
+  - Strategy: Assign entity label only to first subtoken of each word
+  - Assign -100 to inner subtokens and special tokens ([CLS], [SEP], [PAD]) to ignore during loss computation
+  - Ensures loss is computed only on first subtokens
+
+- **Transfer Learning for NER**:
+  - Using pretrained BERT models (dslim/bert-base-NER, bert-base-cased)
+  - Fine-tuning on WikiANN dataset with proper label space initialization
+  - Comparison of mismatched vs. properly aligned classifier heads
+
+- **Evaluation**:
+  - Using seqeval metric for sequence labeling evaluation
+  - Computing precision, recall, F1-score, and accuracy
+  - Handling label space mismatches (e.g., collapsing MISC labels)
+
+**Dataset**:
+- **Source**: WikiANN dataset (English)
+- **Task**: Named Entity Recognition
+- **Training Samples**: 20,000 sentences
+- **Validation Samples**: 10,000 sentences
+- **Test Samples**: 10,000 sentences
+- **Label Schema**: 7 labels (O, B-PER, I-PER, B-ORG, I-ORG, B-LOC, I-LOC)
+- **Challenge**: Pretrained model (dslim/bert-base-NER) was trained on CoNLL-2003 with 4 entity types (PER, ORG, LOC, MISC), while WikiANN uses only 3 (PER, ORG, LOC) without MISC
+
+**Architecture**:
+- **Pretrained Model**: dslim/bert-base-NER (BERT-base trained on CoNLL-2003)
+- **Base Model**: bert-base-cased with properly initialized classifier head
+- **Tokenization**: BERT tokenizer with subword tokenization
+- **Classification Head**: Token classification head matching dataset label space
+
+**Results**:
+- **Mismatched Model (dslim/bert-base-NER)**: F1-score of **0.04** on WikiANN, demonstrating severe performance degradation due to label space mismatch
+- **Fine-tuned Mismatched Model**: Identical performance (F1 ≈ 0.04) after 3 epochs, showing that fine-tuning cannot succeed with mismatched label spaces
+- **Properly Aligned Model (bert-base-cased)**: After 5 epochs of fine-tuning with correct label space:
+  - **Precision**: 0.83
+  - **Recall**: 0.85
+  - **F1-score**: 0.84
+  - **Accuracy**: 0.93
+- **Key Insight**: Fine-tuning cannot succeed when the model's label space does not match the dataset. Once label mismatch was resolved, BERT learned WikiANN effectively and achieved high-quality NER performance
+
+**Applications**: Named entity recognition, information extraction, cross-dataset model adaptation, transfer learning for sequence labeling tasks
