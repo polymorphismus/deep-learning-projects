@@ -1,6 +1,6 @@
 # Deep Learning Projects
 
-This repo contains six deep learning projects across different domains, including computer vision and natural language processing.
+This repo contains eight deep learning projects across different domains, including computer vision and natural language processing.
 
 ## Overview
 
@@ -10,6 +10,8 @@ This collection includes projects covering:
 - **Super-Resolution**: Enhancing image quality using deep learning techniques
 - **Natural Language Processing**: Word embeddings, text classification, and named entity recognition
 - **Biomedical Image Analysis**: Cell counting using density maps and CNNs
+- **Question Answering**: Transformer fine-tuning for extractive QA
+- **Retrieval-Augmented Generation**: Vector search + LLM answering
 
 ---
 
@@ -273,3 +275,33 @@ This collection includes projects covering:
 - **Key Insight**: Fine-tuning cannot succeed when the model's label space does not match the dataset. Once label mismatch was resolved, BERT learned WikiANN effectively and achieved high-quality NER performance
 
 **Applications**: Named entity recognition, information extraction, cross-dataset model adaptation, transfer learning for sequence labeling tasks
+
+---
+
+### 7. Question Answering with Transformers
+**Notebook**: [qa_squad_fin.ipynb](./qa_squad_fin.ipynb)
+
+**Summary**: Fine-tunes transformer models on SQuAD v1.1, covering preprocessing, span alignment, training, and evaluation with EM/F1. Compares performance across context and answer lengths to understand model sensitivity.
+
+**Key Techniques**:
+- Tokenization and sequence length management for extractive QA
+- Fine-tuning BERT-based models on SQuAD v1.1
+- Evaluation with Exact Match and F1 metrics
+- Performance analysis by context length and answer length
+
+**Dataset**:
+- **SQuAD v1.1**: 100k+ question-answer pairs over Wikipedia articles
+
+---
+
+### 8. Retrieval-Augmented Generation on “Winnie-the-Pooh”
+**Notebook**: [pooh_rag.ipynb](./pooh_rag.ipynb)
+
+**Summary**: Builds a RAG pipeline to answer questions about A.A. Milne’s “Winnie-the-Pooh,” combining document chunking, embedding, FAISS vector search, and LLM-based answer generation. Includes prompt tuning and retrieval experiments to balance precision and recall.
+
+**Key Techniques**:
+- Sentence-transformer embeddings with document chunking
+- FAISS vector store for similarity search
+- LangChain-style pipeline for retrieval + generation
+- Prompt engineering to improve grounded answers
+- Evaluation of chunking/embedding variants on answer quality
