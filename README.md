@@ -18,7 +18,7 @@ This collection includes projects covering:
 ## Projects
 
 ### 1. Cell Counting with CNNs and Density Maps
-**Notebook**: [counting_cell_cnn_density.ipynb](./counting_cell_cnn_density.ipynb)
+**Notebook**: [counting_cell_cnn_density.ipynb](./cell_count.ipynb)
 
 **Summary**:  
 This project addresses the problem of counting objects in microscopy images, a common task in biomedical image analysis. Multiple modeling approaches are implemented and compared, progressing from direct regression to fully convolutional density-map estimation.
